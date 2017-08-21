@@ -59,7 +59,7 @@ class Tournament(object):
             for p in player_reader:
                 #skip the row with headers
                 if p[0] != 'ID:':
-                    self.add_player( int(p[0]), p[1] )         
+                    self.add_player( (p[0]), p[1] )         
     
     #load record
     def load_event(self, path_to_load):
@@ -185,3 +185,13 @@ class Tournament(object):
             
             self.players[p1]["results"].append(game_result)
             self.players[p2]["results"].append(-1 * game_result)
+
+    #get player-scors pair after the current round
+    def players_points(self):
+        players_points = []
+        for id in self.players.keys():
+            players_points.append([id, self.players[id]['points']])
+        
+        players_points.sort(reverse = True, key = lambda s:s[1])
+        return players_points
+            
